@@ -1,14 +1,16 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class GameManager : MonoBehaviour {
 	public Video video, noise;
 	public AudioClip noiseClip;
+	public Image bar;
 	
 	float speedDecrease = 0.5f;
 	float startTime = 0;
 	float countPress = 0;
-	float numPresses = 1;
+	float numPresses = 10;
 	float lastMillis = 0;
 	float startChangeTime = 0;
 	bool onSexy = true;
@@ -49,7 +51,9 @@ public class GameManager : MonoBehaviour {
 			noise.gameObject.SetActive (false);
 		}
 
+		bar.rectTransform.sizeDelta = new Vector2( countPress/numPresses * Screen.width, 10);
 		
+
 		if( countPress > 0 )
 			countPress -= Time.deltaTime * speedDecrease;
 
