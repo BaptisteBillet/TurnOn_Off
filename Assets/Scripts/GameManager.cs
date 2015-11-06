@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour {
 		else {
 			source = gameObject.GetComponent<AudioSource> ();
 		}
-		Debug.Log(PlayerPrefs.GetInt("Machine")+1);
+
 		int machineIndex = PlayerPrefs.GetInt ("Machine")+1;
 		video.prudeVideo = "prude" + machineIndex + ".ogv";
 		video.sexyVideo = "sex" + machineIndex + ".ogv";
@@ -64,7 +64,8 @@ public class GameManager : MonoBehaviour {
 		if(Time.time - startChangeTime > 5000){
 			resetVideo();
 		}
-		if (Input.GetKeyDown (KeyCode.Space)) {
+		if (CheckForGamepad() || Input.GetKeyDown(KeyCode.Space))
+		{
 			countPress++;
 
 			if(countPress >= numPresses){
@@ -75,6 +76,7 @@ public class GameManager : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.Return)) {
 			video.RestartVideos();
 		}
+
 	}
 	
 	private void changeStarted(){
@@ -96,4 +98,115 @@ public class GameManager : MonoBehaviour {
 		//noise.gameObject.SetActive (false);
 		startChangeTime = 1000000;
 	}
+	
+	bool CheckForGamepad()
+	{
+		if 
+		(
+			(Input.GetButtonDown("A_1"))||
+			(Input.GetButtonDown("B_1"))||
+			(Input.GetButtonDown("X_1"))||
+			(Input.GetButtonDown("Y_1"))
+		)
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	void CheckForSexyController()
+	{
+
+	}
+
+	bool DickOn()
+	{
+
+		return false;
+	}
+
+	bool DickOff()
+	{
+		return false;
+	}
+
+
 }
+
+/* BUTTON
+if (Input.GetButtonDown("A_1"))
+{
+    Debug.Log("A");
+}
+if (Input.GetButtonDown("B_1"))
+{
+    Debug.Log("B");
+}
+if (Input.GetButtonDown("X_1"))
+{
+    Debug.Log("X");
+}
+if (Input.GetButtonDown("Y_1"))
+{
+    Debug.Log("Y");
+}
+if (Input.GetButtonDown("Start_1"))
+{
+    Debug.Log("Start");
+}
+if (Input.GetButtonDown("Back_1"))
+{
+    Debug.Log("Select");
+}
+if (Input.GetButtonDown("LB_1"))
+{
+    Debug.Log("LB");
+}
+if (Input.GetButtonDown("RB_1"))
+{
+    Debug.Log("RB");
+}
+if (Input.GetAxis("DPad_XAxis_1")>0)
+{
+    Debug.Log("Pad droit");
+}
+if (Input.GetAxis("DPad_XAxis_1") < 0)
+{
+    Debug.Log("Pad gauche");
+}
+if (Input.GetAxis("L_XAxis_1") < 0)
+{
+    Debug.Log("Stick Gauche Gauche");
+}
+if (Input.GetAxis("L_XAxis_1") > 0)
+{
+    Debug.Log("Stick Gauche Droit");
+}
+if (Input.GetAxis("L_YAxis_1") < 0)
+{
+    Debug.Log("Stick Gauche Haut");
+}
+if (Input.GetAxis("L_YAxis_1") > 0)
+{
+    Debug.Log("Stick Gauche Bas");
+}
+if (Input.GetAxis("R_XAxis_1") < 0)
+{
+    Debug.Log("Stick Droit Gauche");
+}
+if (Input.GetAxis("R_XAxis_1") > 0)
+{
+    Debug.Log("Stick Droit Droit");
+}
+if (Input.GetAxis("R_YAxis_1") < 0)
+{
+    Debug.Log("Stick Droit Haut");
+}
+if (Input.GetAxis("R_YAxis_1") > 0)
+{
+    Debug.Log("Stick Droit Bas");
+}
+ 
+Debug.Log("Gachette Droite "+Input.GetAxis("TriggersR_1"));
+Debug.Log("Gachette Gauche " + Input.GetAxis("TriggersL_1"));
+*/

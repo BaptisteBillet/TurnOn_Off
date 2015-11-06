@@ -56,7 +56,7 @@ public class Video : MonoBehaviour
 		{
 			url = platonicVideo;
 		}
-		Debug.Log ("StartStream 1 " + url);
+	
 		
 		WWW videoStreamer = new WWW(url);
 
@@ -72,7 +72,7 @@ public class Video : MonoBehaviour
         movieTexture.Play ();
         movieTexture.loop = true;
 		GetComponent<RawImage>().texture = movieTexture;
-		Debug.Log ("StartStream 2");
+
         //GetComponent<Renderer>().material.mainTexture = movieTexture;
     }
 	public void RestartVideos()
