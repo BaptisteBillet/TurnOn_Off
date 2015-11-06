@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour {
 	AudioSource source;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		startChangeTime = 1000000;
 		resetVideo();
 		if (gameObject.GetComponent<AudioSource> () == null)
@@ -29,6 +29,10 @@ public class GameManager : MonoBehaviour {
 		else {
 			source = gameObject.GetComponent<AudioSource> ();
 		}
+		Debug.Log(PlayerPrefs.GetInt("Machine")+1);
+		int machineIndex = PlayerPrefs.GetInt ("Machine")+1;
+		video.prudeVideo = "prude" + machineIndex + ".ogv";
+		video.sexyVideo = "sex" + machineIndex + ".ogv";
 	}
 	
 	// Update is called once per frame
@@ -67,6 +71,9 @@ public class GameManager : MonoBehaviour {
 				swapVideo();
 				changeStarted();
 			}
+		}
+		if (Input.GetKeyDown (KeyCode.Return)) {
+			video.RestartVideos();
 		}
 	}
 	
