@@ -34,7 +34,7 @@ public class InteractionManager : MonoBehaviour {
 		{
 
 
-			if (CheckForGamepad() || Input.GetKeyDown(KeyCode.Space))
+			if (CheckForGamepad() || Input.GetKeyDown(KeyCode.C))
 			{
 				countSpacePress++;
 			}
