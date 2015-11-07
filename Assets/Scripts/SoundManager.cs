@@ -36,6 +36,7 @@ public class SoundManager : MonoBehaviour {
 				}
 
 				PornSource.Play();
+				StartCoroutine(LouderAndLouder());
 				break;
 
 			case SoundManagerType.STOPPORNSOUND:
@@ -52,7 +53,7 @@ public class SoundManager : MonoBehaviour {
 		while(true)
 		{
 			yield return new WaitForSeconds(0.1f);
-			PornSource.volume += 0.1f;
+			PornSource.volume += 0.01f;
 		}
 	}
 	
