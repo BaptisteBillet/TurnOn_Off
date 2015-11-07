@@ -4,14 +4,10 @@ using System.Collections.Generic;
 public class SoundManager : MonoBehaviour {
 	#region Members
 
-	[Header("VIDEOSOUND")]
-	public List<AudioClip> Music = new List<AudioClip>();
-
 	[Header("PORNSTUFF")]
 	public List<AudioClip> Porn = new List<AudioClip>();
 
-	[Header("Sound Listeners")]
-	public List<AudioSource> Source = new List<AudioSource>();
+	public AudioSource PornSource;
 
 
 	#endregion
@@ -31,14 +27,34 @@ public class SoundManager : MonoBehaviour {
 	{
 		switch (emt)
 		{
-			case SoundManagerType.ABSOLUMENT:
-				Source[2].Stop();
-				//Source[2].clip = Voice[0];
-				Source[2].Play();
+			case SoundManagerType.STARTPORNSOUND:
+				PornSource.Stop();
+				PornSource.volume = 0f;
+				if (PlayerPrefs.GetInt("Machine") > 0 && PlayerPrefs.GetInt("Machine")<=5)
+				{
+					PornSource.clip = Porn[PlayerPrefs.GetInt("Machine") - 1];
+				}
+
+				PornSource.Play();
+				break;
+
+			case SoundManagerType.STOPPORNSOUND:
+				{
+					PornSource.Stop();
+					StopAllCoroutines();
+				}
 				break;
 		}
 	}
 
+	IEnumerator LouderAndLouder()
+	{
+		while(true)
+		{
+			yield return new WaitForSeconds(0.1f);
+			PornSource.volume += 0.1f;
+		}
+	}
 	
 
 }

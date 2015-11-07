@@ -28,7 +28,8 @@ using System.Collections;
 
 public enum SoundManagerType
 {
-	ABSOLUMENT,
+	STARTPORNSOUND,
+	STOPPORNSOUND
 	
 }
 
