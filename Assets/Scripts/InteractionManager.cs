@@ -25,33 +25,33 @@ public class InteractionManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Time.time - swapTime < 1)
-			return;
+		if (Time.time - swapTime > 1) {
 
-		Debug.Log (Time.time - swapTime);
+			Debug.Log (Time.time - swapTime);
 
-		if (CheckForGamepad() || Input.GetKeyDown(KeyCode.Space))
-		{
-			countSpacePress++;
+			if (CheckForGamepad() || Input.GetKeyDown(KeyCode.Space))
+			{
+				countSpacePress++;
 
-		}
-		if(swapUpDown > 0 && Input.GetKeyDown(KeyCode.U)) {
-			swapUpDown *= -1;
-			countUDPress++;
-		}
-		if(swapUpDown < 0 && Input.GetKeyDown(KeyCode.D)) {
-			swapUpDown *= -1;
-			countUDPress++;
-		}
+			}
+			if(swapUpDown > 0 && Input.GetKeyDown(KeyCode.U)) {
+				swapUpDown *= -1;
+				countUDPress++;
+			}
+			if(swapUpDown < 0 && Input.GetKeyDown(KeyCode.D)) {
+				swapUpDown *= -1;
+				countUDPress++;
+			}
 
-		
-		if(swapUpDownArrow > 0 && Input.GetKeyDown(KeyCode.UpArrow)) {
-			swapUpDownArrow *= -1;
-			countUDArrowPress++;
-		}
-		if(swapUpDownArrow < 0 && Input.GetKeyDown(KeyCode.DownArrow)) {
-			swapUpDownArrow *= -1;
-			countUDArrowPress++;
+			
+			if(swapUpDownArrow > 0 && Input.GetKeyDown(KeyCode.UpArrow)) {
+				swapUpDownArrow *= -1;
+				countUDArrowPress++;
+			}
+			if(swapUpDownArrow < 0 && Input.GetKeyDown(KeyCode.DownArrow)) {
+				swapUpDownArrow *= -1;
+				countUDArrowPress++;
+			}
 		}
 
 
