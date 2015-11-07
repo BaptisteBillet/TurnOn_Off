@@ -78,7 +78,6 @@ public class GameManager : MonoBehaviour {
 
 		if (Input.GetKeyDown (KeyCode.Return)) {
 			ResetGame();
-			video.RestartVideos();
 		}
 		purpleText.text = "" + string.Format("{0:0}", unSexyTime);
 		blueText.text = "" + string.Format("{0:0}", sexyTime);
@@ -105,6 +104,7 @@ public class GameManager : MonoBehaviour {
 		
 	}
 	public void ResetGame() {
+		video.RestartVideos();
 		pornSoundPlaying = false;
 		startTime = Time.time;
 		startChangeTime = 1000000;
