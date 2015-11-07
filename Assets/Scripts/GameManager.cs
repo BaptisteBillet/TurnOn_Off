@@ -76,7 +76,8 @@ public class GameManager : MonoBehaviour {
 			ResetVideo();
 		}
 
-		if (Input.GetKeyDown (KeyCode.Return)) {
+		if (Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("Start_1"))
+		{
 			ResetGame();
 		}
 		purpleText.text = "" + string.Format("{0:0}", unSexyTime);
@@ -121,23 +122,9 @@ public class GameManager : MonoBehaviour {
 		startChangeTime = 1000000;
 	}
 
+
 	
-	void CheckForSexyController()
-	{
-
-	}
-
-	bool DickOn()
-	{
-
-		return false;
-	}
-
-	bool DickOff()
-	{
-		return false;
-	}
-
+	
 
 }
 
