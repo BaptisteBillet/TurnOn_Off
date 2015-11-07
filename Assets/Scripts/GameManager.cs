@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour {
 	float numPresses = 10;
 	float lastMillis = 0;
 	float startChangeTime = 0;
-	bool onSexy = true;
+	public bool onSexy = true;
 	
 	float sexyTime = 0;
 	float unSexyTime = 0;
@@ -31,7 +31,10 @@ public class GameManager : MonoBehaviour {
 		current = this;
 		pornSoundPlaying = false;
 		startChangeTime = 1000000;
+
+
 		ResetVideo();
+		ResetGame ();
 		if (gameObject.GetComponent<AudioSource> () == null)
 			source = gameObject.AddComponent<AudioSource> ();
 		else {
@@ -49,15 +52,22 @@ public class GameManager : MonoBehaviour {
 
 		if(Time.time - startTime > 10){
 			
-			if(pornSoundPlaying==false)
-			{
-				pornSoundPlaying = true;
-				SoundManagerEvent.emit(SoundManagerType.STARTPORNSOUND);
-			}
+
 			
 			if(onSexy){
+				if(!pornSoundPlaying)
+				{
+					pornSoundPlaying = true;
+					SoundManagerEvent.emit(SoundManagerType.STARTPORNSOUND);
+				}
 				sexyTime += Time.deltaTime;
 			}else{
+				
+				if(pornSoundPlaying)
+				{
+					pornSoundPlaying = false;
+					SoundManagerEvent.emit(SoundManagerType.STOPPORNSOUND);
+				}
 				unSexyTime += Time.deltaTime;
 			}
 			
@@ -113,12 +123,14 @@ public class GameManager : MonoBehaviour {
 		
 	}
 	public void ResetGame() {
-		//video.RestartVideos();
 		pornSoundPlaying = false;
 		startTime = Time.time;
 		startChangeTime = 1000000;
 		unSexyTime = 0;
 		sexyTime = 0;
+		onSexy = (Random.value >= 0.5);
+		
+		video.RestartVideos(onSexy);
 
 	}
 	public void ResetVideo() {

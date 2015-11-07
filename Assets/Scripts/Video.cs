@@ -17,7 +17,7 @@ public class Video : MonoBehaviour
     void Start () 
 	{
 		if (!started) {
-
+			isSexVideoPlaying = GameManager.current.onSexy;
 			StartCoroutine (StartStream1 ());
 			StartCoroutine (StartStream2 ());
 		}
@@ -63,10 +63,10 @@ public class Video : MonoBehaviour
 		{
 			yield return 0;
 		}
-		
-		PlayVideo(true);
+
 		movieTexture1.Play ();
 		movieTexture1.loop = true;
+		if(isSexVideoPlaying) PlayVideo(true);
 	}
 	protected IEnumerator StartStream2 ()
 	{
@@ -84,13 +84,16 @@ public class Video : MonoBehaviour
 		}
 		movieTexture2.Play ();
 		movieTexture2.loop = true;
+		if(!isSexVideoPlaying) PlayVideo(false);
 	}
-	public void RestartVideos()
+	public void RestartVideos(bool sexy)
 	{
 		//StopAllCoroutines();
 		//StartCoroutine(StartStream(true));
 		//StartCoroutine(StartStream(false));
 		//PlayVideo(isSexVideoPlaying);
+		isSexVideoPlaying = sexy;
+		PlayVideo (isSexVideoPlaying);
 		Debug.Log ("StopAllCoroutines ");
 	}
 	public void volume(float vol)
@@ -101,13 +104,15 @@ public class Video : MonoBehaviour
 	void PlayVideo(bool sexyVideo){
 		Debug.Log ("sexyVideo " + sexyVideo);
 		if (sexyVideo) {
-			if(movieTexture1.isPlaying)movieTexture1.Stop ();
+			if(movieTexture1 == null) return;
+			if(movieTexture1.isPlaying) movieTexture1.Stop ();
 			GetComponent<AudioSource>().clip = movieTexture1.audioClip;
 			GetComponent<AudioSource>().Play ();
 			GetComponent<RawImage>().texture = movieTexture1;
 			movieTexture1.Play ();
 			movieTexture1.loop = true;
 		} else {
+			if(movieTexture2 == null) return;
 			if(movieTexture2.isPlaying)movieTexture2.Stop ();
 			GetComponent<AudioSource>().clip = movieTexture2.audioClip;
 			GetComponent<AudioSource>().Play ();
