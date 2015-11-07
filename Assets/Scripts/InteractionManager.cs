@@ -8,12 +8,12 @@ public class InteractionManager : MonoBehaviour {
 	float countUDPress = 0;
 	float countUDArrowPress = 0;
 	float numSpacePresses = 10;
-	float numUDPresses = 40;
-	float numUDArrowPresses = 10;
+	float numUDPresses = 10;
+	float numUDArrowPresses = 40;
 	float speedDecrease = 0.5f;
 	float speedDecreaseArrow = 0.9f;
 
-	int swapUpDown = 1;
+	int swapUpDown = -1;
 	int swapUpDownArrow = 1;
 
 	public Image bar;
@@ -60,7 +60,7 @@ public class InteractionManager : MonoBehaviour {
 		if(countUDPress > 0){
 			progress = countUDPress / numUDPresses;
 		}
-		if(countUDArrowPress > 0){
+		else if(countUDArrowPress > 0){
 			progress = countUDArrowPress / numUDArrowPresses;
 		}
 
