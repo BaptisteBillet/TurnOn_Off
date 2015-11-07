@@ -21,8 +21,11 @@ public class GameManager : MonoBehaviour {
 
 	AudioSource source;
 
+	bool isThePornSoundIsAlreadyPlayed;
+
 	// Use this for initialization
 	void Awake () {
+		isThePornSoundIsAlreadyPlayed = false;
 		current = this;
 		startChangeTime = 1000000;
 		ResetVideo();
@@ -35,11 +38,19 @@ public class GameManager : MonoBehaviour {
 		int machineIndex = PlayerPrefs.GetInt ("Machine")+1;
 		video.prudeVideo = "prude" + machineIndex + ".ogv";
 		video.sexyVideo = "sex" + machineIndex + ".ogv";
+		
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if(Time.time - startTime > 10){
+			
+			if(isThePornSoundIsAlreadyPlayed==false)
+			{
+				isThePornSoundIsAlreadyPlayed = true;
+				SoundManagerEvent.emit(SoundManagerType.STARTPORNSOUND);
+			}
+			
 			if(onSexy){
 				sexyTime = ((Time.time - startTime)-10);
 			}else{
@@ -78,6 +89,10 @@ public class GameManager : MonoBehaviour {
 		startTime = Time.time;
 		countPress = 0;
 		onSexy =!onSexy;
+
+		isThePornSoundIsAlreadyPlayed = false;
+		SoundManagerEvent.emit(SoundManagerType.STOPPORNSOUND);
+		
 		
 	}
 	public void ResetVideo(){
