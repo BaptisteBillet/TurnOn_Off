@@ -13,6 +13,9 @@ public class InteractionManager : MonoBehaviour {
 	float speedDecrease = 0.5f;
 	float speedDecreaseArrow = 0.9f;
 
+	int numStickNipples=60;
+	float countStickNipples=0;
+
 	int swapUpDown = -1;
 	int swapUpDownArrow = 1;
 
@@ -35,6 +38,8 @@ public class InteractionManager : MonoBehaviour {
 			countSpacePress++;
 
 		}
+
+		//UD PENIS
 		if(swapUpDown > 0 && Input.GetKeyDown(KeyCode.U)) {
 			swapUpDown *= -1;
 			countUDPress++;
@@ -44,16 +49,41 @@ public class InteractionManager : MonoBehaviour {
 			countUDPress++;
 		}
 
-		
-		if(swapUpDownArrow > 0 && Input.GetKeyDown(KeyCode.UpArrow)) {
+
+
+
+		//NIPPLE KEYBOARD
+		if(swapUpDownArrow > 0 && Input.GetKeyDown(KeyCode.RightArrow)) {
 			swapUpDownArrow *= -1;
 			countUDArrowPress++;
 		}
-		if(swapUpDownArrow < 0 && Input.GetKeyDown(KeyCode.DownArrow)) {
+		if(swapUpDownArrow < 0 && Input.GetKeyDown(KeyCode.LeftArrow)) {
 			swapUpDownArrow *= -1;
 			countUDArrowPress++;
 		}
 
+		if (Input.GetAxis("L_YAxis_1") < 0)
+		{
+		    Debug.Log("Stick Gauche Haut");
+		}
+		if (Input.GetAxis("L_YAxis_1") > 0)
+		{
+		    Debug.Log("Stick Gauche Bas");
+		}
+
+		//NIPPLE GAMEPAD
+		if (swapUpDown > 0 && Input.GetAxis("L_YAxis_1") < -0.6f)
+		{
+			swapUpDown *= -1;
+			countStickNipples++;
+		}
+		if (swapUpDown < 0 && Input.GetAxis("L_YAxis_1") > 0.6f)
+		{
+			swapUpDown *= -1;
+			countStickNipples++;
+		}
+
+		///
 
 		float progress = countSpacePress / numSpacePresses;
 
@@ -62,6 +92,9 @@ public class InteractionManager : MonoBehaviour {
 		}
 		else if(countUDArrowPress > 0){
 			progress = countUDArrowPress / numUDArrowPresses;
+		} else if(countStickNipples>0)
+		{
+			progress = countStickNipples / (float)numStickNipples;
 		}
 
 		
@@ -71,6 +104,7 @@ public class InteractionManager : MonoBehaviour {
 			countUDPress = 0;
 			countUDArrowPress = 0;
 			countSpacePress = 0;
+			countStickNipples = 0;
 			swapTime = Time.time;
 		}
 		
@@ -80,6 +114,10 @@ public class InteractionManager : MonoBehaviour {
 			countUDPress -= Time.deltaTime * speedDecrease;
 		if( countUDArrowPress > 0 )
 			countUDArrowPress -= Time.deltaTime * speedDecreaseArrow;
+		if(countStickNipples>0)
+		{
+			countStickNipples-=Time.deltaTime*speedDecrease;
+		}
 
 		bar.rectTransform.sizeDelta = new Vector2(progress  * Screen.width, 10);
 

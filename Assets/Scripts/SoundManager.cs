@@ -30,11 +30,15 @@ public class SoundManager : MonoBehaviour {
 			case SoundManagerType.STARTPORNSOUND:
 				PornSource.Stop();
 				PornSource.volume = 0f;
+
+				
+				
 				if (PlayerPrefs.GetInt("Machine") > 0 && PlayerPrefs.GetInt("Machine")<=5)
 				{
+					Debug.Log(PlayerPrefs.GetInt("Machine") - 1);
 					PornSource.clip = Porn[PlayerPrefs.GetInt("Machine") - 1];
 				}
-
+				
 				PornSource.Play();
 				StartCoroutine(LouderAndLouder());
 				break;
