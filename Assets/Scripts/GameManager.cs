@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour {
 
 	bool pornSoundPlaying;
 
+	bool isGameMode=true;
+
 	// Use this for initialization
 	void Awake () {
 		current = this;
@@ -87,6 +89,12 @@ public class GameManager : MonoBehaviour {
 		blueText.rectTransform.anchoredPosition = new Vector3 (blueBar.rectTransform.localScale.x * Screen.width * 0.5f + 10, -41, 0f);
 		purpleText.rectTransform.anchoredPosition = new Vector3 (purpleBar.rectTransform.localScale.x * -Screen.width * 0.5f - 10, -41, 0f);
 
+		if(Input.GetButtonDown("Back_1") || Input.GetKeyDown(KeyCode.E))
+		{
+			ChangeMode();
+		}
+
+
 	}
 	
 	public void ChangeStarted(){
@@ -122,7 +130,14 @@ public class GameManager : MonoBehaviour {
 		startChangeTime = 1000000;
 	}
 
-
+	public void ChangeMode()
+	{
+		isGameMode = !isGameMode;
+		blueBar.gameObject.SetActive(isGameMode);
+		purpleBar.gameObject.SetActive(isGameMode);
+		blueText.enabled = isGameMode;
+		purpleText.enabled = isGameMode;
+	}
 	
 	
 
