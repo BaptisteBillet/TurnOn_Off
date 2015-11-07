@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour {
 			source = gameObject.GetComponent<AudioSource> ();
 		}
 
-		int machineIndex = PlayerPrefs.GetInt ("Machine")+1;
+		int machineIndex = PlayerPrefs.GetInt ("Machine");
 		video.prudeVideo = "prude" + machineIndex + ".ogv";
 		video.sexyVideo = "sex" + machineIndex + ".ogv";
 		
