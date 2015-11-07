@@ -7,6 +7,7 @@ public class InteractionManager : MonoBehaviour {
 	float countSpacePress = 0;
 	float countUDPress = 0;
 	float countUDArrowPress = 0;
+	float countFPress = 0;
 	float numSpacePresses = 10;
 	float numUDPresses = 10;
 	float numUDArrowPresses = 40;
@@ -21,6 +22,7 @@ public class InteractionManager : MonoBehaviour {
 
 	public Image bar;
 	private float swapTime = 0;
+	private float FTime = 5;
 	// Use this for initialization
 	void Start () {
 	
@@ -91,6 +93,13 @@ public class InteractionManager : MonoBehaviour {
 				countUDArrowPress++;
 			}
 
+			
+			//FISTER
+			if (Input.GetKey(KeyCode.F))
+			{
+				countFPress += Time.deltaTime * 2;
+			}
+
 			//NIPPLE GAMEPAD
 			if (swapUpDown > 0 && Input.GetAxis("L_YAxis_1") < -0.6f)
 			{
@@ -115,6 +124,9 @@ public class InteractionManager : MonoBehaviour {
 		} else if(countStickNipples>0)
 		{
 			progress = countStickNipples / (float)numStickNipples;
+		}else if(countFPress>0)
+		{
+			progress = countFPress / (float)FTime;
 		}
 
 		
@@ -122,6 +134,7 @@ public class InteractionManager : MonoBehaviour {
 			GameManager.current.SwapVideo();
 			GameManager.current.ChangeStarted();
 			countUDPress = 0;
+			countFPress = 0;
 			countUDArrowPress = 0;
 			countSpacePress = 0;
 			countStickNipples = 0;
@@ -137,6 +150,10 @@ public class InteractionManager : MonoBehaviour {
 		if(countStickNipples>0)
 		{
 			countStickNipples-=Time.deltaTime*speedDecrease;
+		}
+		if(countFPress>0)
+		{
+			countFPress-=Time.deltaTime;
 		}
 
 
