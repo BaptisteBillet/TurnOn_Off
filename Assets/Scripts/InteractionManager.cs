@@ -27,7 +27,6 @@ public class InteractionManager : MonoBehaviour {
 	void Update () {
 		if (Time.time - swapTime > 1) {
 
-			Debug.Log (Time.time - swapTime);
 
 			if (CheckForGamepad() || Input.GetKeyDown(KeyCode.Space))
 			{

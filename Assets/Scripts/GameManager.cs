@@ -6,7 +6,8 @@ public class GameManager : MonoBehaviour {
 	public static GameManager current;
 	public Video video, noise;
 	public AudioClip noiseClip;
-	public Image bar;
+	public Image blueBar, purpleBar;
+	public Text blueText, purpleText;
 	
 	float speedDecrease = 0.5f;
 	float startTime = 0;
@@ -21,12 +22,12 @@ public class GameManager : MonoBehaviour {
 
 	AudioSource source;
 
-	bool isThePornSoundIsAlreadyPlayed;
+	bool pornSoundPlaying;
 
 	// Use this for initialization
 	void Awake () {
-		isThePornSoundIsAlreadyPlayed = false;
 		current = this;
+		pornSoundPlaying = false;
 		startChangeTime = 1000000;
 		ResetVideo();
 		if (gameObject.GetComponent<AudioSource> () == null)
@@ -43,18 +44,19 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
 		if(Time.time - startTime > 10){
 			
-			if(isThePornSoundIsAlreadyPlayed==false)
+			if(pornSoundPlaying==false)
 			{
-				isThePornSoundIsAlreadyPlayed = true;
+				pornSoundPlaying = true;
 				SoundManagerEvent.emit(SoundManagerType.STARTPORNSOUND);
 			}
 			
 			if(onSexy){
-				sexyTime = ((Time.time - startTime)-10);
+				sexyTime += Time.deltaTime;
 			}else{
-				unSexyTime = ((Time.time - startTime)-10);
+				unSexyTime += Time.deltaTime;
 			}
 			
 		}
@@ -70,13 +72,20 @@ public class GameManager : MonoBehaviour {
 
 
 
-		if(Time.time - startChangeTime > 5000){
+		if(Time.time - startChangeTime > 5){
 			ResetVideo();
 		}
 
 		if (Input.GetKeyDown (KeyCode.Return)) {
+			ResetGame();
 			video.RestartVideos();
 		}
+		purpleText.text = "" + string.Format("{0:0}", unSexyTime);
+		blueText.text = "" + string.Format("{0:0}", sexyTime);
+		purpleBar.rectTransform.localScale = new Vector3 ((unSexyTime / 100f), 1, 1);
+		blueBar.rectTransform.localScale = new Vector3 ((sexyTime / 100f), 1, 1);
+		blueText.rectTransform.anchoredPosition = new Vector3 (blueBar.rectTransform.localScale.x * Screen.width * 0.5f + 10, -41, 0f);
+		purpleText.rectTransform.anchoredPosition = new Vector3 (purpleBar.rectTransform.localScale.x * -Screen.width * 0.5f - 10, -41, 0f);
 
 	}
 	
@@ -90,12 +99,20 @@ public class GameManager : MonoBehaviour {
 		countPress = 0;
 		onSexy =!onSexy;
 
-		isThePornSoundIsAlreadyPlayed = false;
+		pornSoundPlaying = false;
 		SoundManagerEvent.emit(SoundManagerType.STOPPORNSOUND);
 		
 		
 	}
-	public void ResetVideo(){
+	public void ResetGame() {
+		pornSoundPlaying = false;
+		startTime = Time.time;
+		startChangeTime = 1000000;
+		unSexyTime = 0;
+		sexyTime = 0;
+
+	}
+	public void ResetVideo() {
 
 		startTime = Time.time-0.4f;
 		video.RestartVideos ();
