@@ -73,10 +73,10 @@ public class GameManager : MonoBehaviour {
 		}
 
 
-
+		/*
 		if(Time.time - startChangeTime > 5){
 			ResetVideo();
-		}
+		}*/
 
 		if (Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("Start_1"))
 		{
@@ -86,8 +86,8 @@ public class GameManager : MonoBehaviour {
 		blueText.text = "" + string.Format("{0:0}", sexyTime);
 		purpleBar.rectTransform.localScale = new Vector3 ((unSexyTime / 100f), 1, 1);
 		blueBar.rectTransform.localScale = new Vector3 ((sexyTime / 100f), 1, 1);
-		blueText.rectTransform.anchoredPosition = new Vector3 (blueBar.rectTransform.localScale.x * Screen.width * 0.5f + 10, -41, 0f);
-		purpleText.rectTransform.anchoredPosition = new Vector3 (purpleBar.rectTransform.localScale.x * -Screen.width * 0.5f - 10, -41, 0f);
+		blueText.rectTransform.anchoredPosition = new Vector3 (blueBar.rectTransform.localScale.x * Screen.width * 0.5f + 10, -16, 0f);
+		purpleText.rectTransform.anchoredPosition = new Vector3 (purpleBar.rectTransform.localScale.x * -Screen.width * 0.5f - 10, -16, 0f);
 
 		if(Input.GetButtonDown("Back_1") || Input.GetKeyDown(KeyCode.E))
 		{
