@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour {
 
 	bool pornSoundPlaying;
 
+	bool isGameMode=true;
+
 	// Use this for initialization
 	void Awake () {
 		current = this;
@@ -45,26 +47,25 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if (Time.time - startTime > 10) {
+		if(Time.time - startTime > 10){
 			
-			if (pornSoundPlaying == false) {
+			if(pornSoundPlaying==false)
+			{
 				pornSoundPlaying = true;
-				SoundManagerEvent.emit (SoundManagerType.STARTPORNSOUND);
+				SoundManagerEvent.emit(SoundManagerType.STARTPORNSOUND);
 			}
 			
-			if (onSexy) {
+			if(onSexy){
 				sexyTime += Time.deltaTime;
-			} else {
+			}else{
 				unSexyTime += Time.deltaTime;
 			}
-			video.volume (0.2f + (Time.time - startTime - 10) / 5f);
-		} else {
-			video.volume(0.2f);
+			
 		}
 		
 		if (Time.time - startTime < 0.4f && !noise.gameObject.activeSelf) {
 			noise.gameObject.SetActive (true);
-			noise.RestartVideos();
+			//noise.RestartVideos();
 			noise.gameObject.GetComponent<AudioSource>().Play();
 
 		} else if(Time.time - startTime > 0.4f && noise.gameObject.activeSelf){
@@ -72,11 +73,10 @@ public class GameManager : MonoBehaviour {
 		}
 
 
-
+		/*
 		if(Time.time - startChangeTime > 5){
-			// no restarting
-			//ResetVideo();
-		}
+			ResetVideo();
+		}*/
 
 		if (Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("Start_1"))
 		{
@@ -86,8 +86,14 @@ public class GameManager : MonoBehaviour {
 		blueText.text = "" + string.Format("{0:0}", sexyTime);
 		purpleBar.rectTransform.localScale = new Vector3 ((unSexyTime / 100f), 1, 1);
 		blueBar.rectTransform.localScale = new Vector3 ((sexyTime / 100f), 1, 1);
-		blueText.rectTransform.anchoredPosition = new Vector3 (blueBar.rectTransform.localScale.x * Screen.width * 0.5f + 10, -41, 0f);
-		purpleText.rectTransform.anchoredPosition = new Vector3 (purpleBar.rectTransform.localScale.x * -Screen.width * 0.5f - 10, -41, 0f);
+		blueText.rectTransform.anchoredPosition = new Vector3 (blueBar.rectTransform.localScale.x * Screen.width * 0.5f + 10, -16, 0f);
+		purpleText.rectTransform.anchoredPosition = new Vector3 (purpleBar.rectTransform.localScale.x * -Screen.width * 0.5f - 10, -16, 0f);
+
+		if(Input.GetButtonDown("Back_1") || Input.GetKeyDown(KeyCode.E))
+		{
+			ChangeMode();
+		}
+
 
 	}
 	
@@ -107,7 +113,7 @@ public class GameManager : MonoBehaviour {
 		
 	}
 	public void ResetGame() {
-		video.RestartVideos();
+		//video.RestartVideos();
 		pornSoundPlaying = false;
 		startTime = Time.time;
 		startChangeTime = 1000000;
@@ -118,13 +124,20 @@ public class GameManager : MonoBehaviour {
 	public void ResetVideo() {
 
 		startTime = Time.time-0.4f;
-		video.RestartVideos ();
+		//video.RestartVideos ();
 		noise.volume(0);
 		//noise.gameObject.SetActive (false);
 		startChangeTime = 1000000;
 	}
 
-
+	public void ChangeMode()
+	{
+		isGameMode = !isGameMode;
+		blueBar.gameObject.SetActive(isGameMode);
+		purpleBar.gameObject.SetActive(isGameMode);
+		blueText.enabled = isGameMode;
+		purpleText.enabled = isGameMode;
+	}
 	
 	
 
