@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class GameManager : MonoBehaviour {
+	public static GameManager current;
 	public Video video, noise;
 	public AudioClip noiseClip;
 	public Image bar;
@@ -22,8 +23,9 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
+		current = this;
 		startChangeTime = 1000000;
-		resetVideo();
+		ResetVideo();
 		if (gameObject.GetComponent<AudioSource> () == null)
 			source = gameObject.AddComponent<AudioSource> ();
 		else {
@@ -55,34 +57,22 @@ public class GameManager : MonoBehaviour {
 			noise.gameObject.SetActive (false);
 		}
 
-		bar.rectTransform.sizeDelta = new Vector2( countPress/numPresses * Screen.width, 10);
-		
 
-		if( countPress > 0 )
-			countPress -= Time.deltaTime * speedDecrease;
 
 		if(Time.time - startChangeTime > 5000){
-			resetVideo();
+			ResetVideo();
 		}
-		if (CheckForGamepad() || Input.GetKeyDown(KeyCode.Space))
-		{
-			countPress++;
 
-			if(countPress >= numPresses){
-				swapVideo();
-				changeStarted();
-			}
-		}
 		if (Input.GetKeyDown (KeyCode.Return)) {
 			video.RestartVideos();
 		}
 
 	}
 	
-	private void changeStarted(){
+	public void ChangeStarted(){
 		startChangeTime = Time.time;
 	}
-	private void swapVideo(){
+	public void SwapVideo(){
 		source.Play ();
 		video.SwapVideo ();
 		startTime = Time.time;
@@ -90,7 +80,7 @@ public class GameManager : MonoBehaviour {
 		onSexy =!onSexy;
 		
 	}
-	private void resetVideo(){
+	public void ResetVideo(){
 
 		startTime = Time.time-0.4f;
 		video.RestartVideos ();
@@ -98,21 +88,7 @@ public class GameManager : MonoBehaviour {
 		//noise.gameObject.SetActive (false);
 		startChangeTime = 1000000;
 	}
-	
-	bool CheckForGamepad()
-	{
-		if 
-		(
-			(Input.GetButtonDown("A_1"))||
-			(Input.GetButtonDown("B_1"))||
-			(Input.GetButtonDown("X_1"))||
-			(Input.GetButtonDown("Y_1"))
-		)
-		{
-			return true;
-		}
-		return false;
-	}
+
 	
 	void CheckForSexyController()
 	{
