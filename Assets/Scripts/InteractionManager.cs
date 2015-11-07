@@ -4,7 +4,7 @@ using System.Collections;
 
 public class InteractionManager : MonoBehaviour {
 
-	float countSpacePress = 0;
+	float countCPress = 0;
 	float countUDPress = 0;
 	float countUDArrowPress = 0;
 	float countFPress = 0;
@@ -36,18 +36,18 @@ public class InteractionManager : MonoBehaviour {
 
 			if (CheckForGamepad() || Input.GetKeyDown(KeyCode.C))
 			{
-				countSpacePress++;
+				countCPress++;
 			}
 
 
 
 			//UD PENIS
-			if (swapUpDown > 0 && Input.GetKeyDown(KeyCode.U))
+			if (swapUpDown > 0 && (Input.GetKeyDown(KeyCode.U) || Input.GetKeyDown(KeyCode.L)))
 			{
 				swapUpDown *= -1;
 				countUDPress++;
 			}
-			if (swapUpDown < 0 && Input.GetKeyDown(KeyCode.D))
+			if (swapUpDown < 0 && (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.R)))
 			{
 				swapUpDown *= -1;
 				countUDPress++;
@@ -70,16 +70,6 @@ public class InteractionManager : MonoBehaviour {
 			}
 
 
-			if (swapUpDown > 0 && Input.GetKeyDown(KeyCode.U))
-			{
-				swapUpDown *= -1;
-				countUDPress++;
-			}
-			if (swapUpDown < 0 && Input.GetKeyDown(KeyCode.D))
-			{
-				swapUpDown *= -1;
-				countUDPress++;
-			}
 
 
 			if (swapUpDownArrow > 0 && Input.GetKeyDown(KeyCode.UpArrow))
@@ -114,7 +104,7 @@ public class InteractionManager : MonoBehaviour {
 		}
 		///
 
-		float progress = countSpacePress / numSpacePresses;
+		float progress = countCPress / numSpacePresses;
 
 		if(countUDPress > 0){
 			progress = countUDPress / numUDPresses;
@@ -136,13 +126,13 @@ public class InteractionManager : MonoBehaviour {
 			countUDPress = 0;
 			countFPress = 0;
 			countUDArrowPress = 0;
-			countSpacePress = 0;
+			countCPress = 0;
 			countStickNipples = 0;
 			swapTime = Time.time;
 		}
 		
-		if( countSpacePress > 0 )
-			countSpacePress -= Time.deltaTime * speedDecrease;
+		if( countCPress > 0 )
+			countCPress -= Time.deltaTime * speedDecrease;
 		if( countUDPress > 0 )
 			countUDPress -= Time.deltaTime * speedDecrease;
 		if( countUDArrowPress > 0 )
