@@ -28,61 +28,81 @@ public class InteractionManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Time.time - swapTime < 1)
-			return;
-
-		Debug.Log (Time.time - swapTime);
-
-		if (CheckForGamepad() || Input.GetKeyDown(KeyCode.Space))
+		if (Time.time - swapTime > 1)
 		{
-			countSpacePress++;
 
-		}
 
-		//UD PENIS
-		if(swapUpDown > 0 && Input.GetKeyDown(KeyCode.U)) {
-			swapUpDown *= -1;
-			countUDPress++;
-		}
-		if(swapUpDown < 0 && Input.GetKeyDown(KeyCode.D)) {
-			swapUpDown *= -1;
-			countUDPress++;
-		}
+			if (CheckForGamepad() || Input.GetKeyDown(KeyCode.Space))
+			{
+				countSpacePress++;
+			}
 
 
 
+			//UD PENIS
+			if (swapUpDown > 0 && Input.GetKeyDown(KeyCode.U))
+			{
+				swapUpDown *= -1;
+				countUDPress++;
+			}
+			if (swapUpDown < 0 && Input.GetKeyDown(KeyCode.D))
+			{
+				swapUpDown *= -1;
+				countUDPress++;
+			}
 
-		//NIPPLE KEYBOARD
-		if(swapUpDownArrow > 0 && Input.GetKeyDown(KeyCode.RightArrow)) {
-			swapUpDownArrow *= -1;
-			countUDArrowPress++;
-		}
-		if(swapUpDownArrow < 0 && Input.GetKeyDown(KeyCode.LeftArrow)) {
-			swapUpDownArrow *= -1;
-			countUDArrowPress++;
-		}
 
-		if (Input.GetAxis("L_YAxis_1") < 0)
-		{
-		    Debug.Log("Stick Gauche Haut");
-		}
-		if (Input.GetAxis("L_YAxis_1") > 0)
-		{
-		    Debug.Log("Stick Gauche Bas");
-		}
 
-		//NIPPLE GAMEPAD
-		if (swapUpDown > 0 && Input.GetAxis("L_YAxis_1") < -0.6f)
-		{
-			swapUpDown *= -1;
-			countStickNipples++;
-		}
-		if (swapUpDown < 0 && Input.GetAxis("L_YAxis_1") > 0.6f)
-		{
-			swapUpDown *= -1;
-			countStickNipples++;
-		}
 
+			//NIPPLE KEYBOARD
+			if (swapUpDownArrow > 0 && Input.GetKeyDown(KeyCode.RightArrow))
+			{
+				swapUpDownArrow *= -1;
+				countUDArrowPress++;
+			}
+
+			if (swapUpDownArrow < 0 && Input.GetKeyDown(KeyCode.LeftArrow))
+			{
+				swapUpDownArrow *= -1;
+				countUDArrowPress++;
+			}
+
+
+			if (swapUpDown > 0 && Input.GetKeyDown(KeyCode.U))
+			{
+				swapUpDown *= -1;
+				countUDPress++;
+			}
+			if (swapUpDown < 0 && Input.GetKeyDown(KeyCode.D))
+			{
+				swapUpDown *= -1;
+				countUDPress++;
+			}
+
+
+			if (swapUpDownArrow > 0 && Input.GetKeyDown(KeyCode.UpArrow))
+			{
+				swapUpDownArrow *= -1;
+				countUDArrowPress++;
+			}
+			if (swapUpDownArrow < 0 && Input.GetKeyDown(KeyCode.DownArrow))
+			{
+				swapUpDownArrow *= -1;
+				countUDArrowPress++;
+			}
+
+			//NIPPLE GAMEPAD
+			if (swapUpDown > 0 && Input.GetAxis("L_YAxis_1") < -0.6f)
+			{
+				swapUpDown *= -1;
+				countStickNipples++;
+			}
+			if (swapUpDown < 0 && Input.GetAxis("L_YAxis_1") > 0.6f)
+			{
+				swapUpDown *= -1;
+				countStickNipples++;
+			}
+		}
 		///
 
 		float progress = countSpacePress / numSpacePresses;
@@ -118,6 +138,7 @@ public class InteractionManager : MonoBehaviour {
 		{
 			countStickNipples-=Time.deltaTime*speedDecrease;
 		}
+
 
 		bar.rectTransform.sizeDelta = new Vector2(progress  * Screen.width, 10);
 
