@@ -82,6 +82,7 @@ public class Video : MonoBehaviour
 	}
 	public void volume(float vol)
 	{
+		vol = Mathf.Clamp01 (vol);
 		GetComponent<AudioSource> ().volume = vol;
 	} 
 }

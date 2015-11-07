@@ -45,20 +45,21 @@ public class GameManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		if(Time.time - startTime > 10){
+		if (Time.time - startTime > 10) {
 			
-			if(pornSoundPlaying==false)
-			{
+			if (pornSoundPlaying == false) {
 				pornSoundPlaying = true;
-				SoundManagerEvent.emit(SoundManagerType.STARTPORNSOUND);
+				SoundManagerEvent.emit (SoundManagerType.STARTPORNSOUND);
 			}
 			
-			if(onSexy){
+			if (onSexy) {
 				sexyTime += Time.deltaTime;
-			}else{
+			} else {
 				unSexyTime += Time.deltaTime;
 			}
-			
+			video.volume (0.2f + (Time.time - startTime - 10) / 5f);
+		} else {
+			video.volume(0.2f);
 		}
 		
 		if (Time.time - startTime < 0.4f && !noise.gameObject.activeSelf) {
@@ -73,7 +74,8 @@ public class GameManager : MonoBehaviour {
 
 
 		if(Time.time - startChangeTime > 5){
-			ResetVideo();
+			// no restarting
+			//ResetVideo();
 		}
 
 		if (Input.GetKeyDown (KeyCode.Return)) {
